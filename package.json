@@ -8,7 +8,8 @@
     "url": "https://github.com/rfcaio"
   },
   "dependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "express-validator": "6.6.1"
   },
   "devDependencies": {
     "eslint": "7.10.0",
