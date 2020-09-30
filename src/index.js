@@ -1,9 +1,27 @@
 const express = require('express')
-const { body, validationResult } = require('express-validator')
+const { body, param, validationResult } = require('express-validator')
 
 const server = express()
 
 server.use(express.json())
+
+server.delete(
+  '/product/:id',
+  [
+    param('id')
+      .isInt({ gt: 0 })
+      .withMessage('You must provide a valid id.')
+  ],
+  (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    return res.status(204).end()
+  }
+)
 
 server.post(
   '/product',
