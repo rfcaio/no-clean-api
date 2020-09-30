@@ -1,0 +1,44 @@
+{
+  "name": "no-clean-api",
+  "version": "0.0.0",
+  "description": "A simple REST API.",
+  "author": {
+    "email": "rfcaio90@gmail.com",
+    "name": "Caio Rodrigues Fernandes",
+    "url": "https://github.com/rfcaio"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "7.10.0",
+    "eslint-config-standard": "14.1.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "husky": "4.3.0",
+    "lint-staged": "10.4.0",
+    "nodemon": "2.0.4"
+  },
+  "homepage": "https://github.com/rfcaio/no-clean-api#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rfcaio/no-clean-api.git"
+  },
+  "scripts": {
+    "start": "nodemon src/index.js"
+  }
+}
