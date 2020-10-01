@@ -23,6 +23,10 @@ server.delete(
   }
 )
 
+server.get('/product', (req, res) => {
+  return res.status(200).json({ products: [] })
+})
+
 server.post(
   '/product',
   [
