@@ -40,7 +40,12 @@ server.delete(
 )
 
 server.get('/product', (req, res) => {
-  return res.status(200).json({ products: [] })
+  db.all('SELECT * FROM product', (error, products) => {
+    if (error) {
+      return res.status(500).json({ message: 'Server error occurred.' })
+    }
+    return res.status(200).json({ products })
+  })
 })
 
 server.get(
