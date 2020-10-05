@@ -82,8 +82,12 @@ server.post(
     }
 
     const { name, price } = req.body
-    return res.status(201).json({
-      message: `Product ${name} with price ${price} created with success.`
+    const query = 'INSERT INTO product (name, price) VALUES (?, ?)'
+    db.run(query, [name, price], error => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error occurred.' })
+      }
+      return res.status(201).json({ message: 'Product created with success.' })
     })
   }
 )
