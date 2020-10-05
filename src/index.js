@@ -131,8 +131,13 @@ server.put(
 
     const { name, price } = req.body
     const { id } = req.params
-    return res.status(200).json({
-      message: `Product ${name} with id ${id} and price ${price} updated with success.`
+    const query = 'UPDATE product SET name = ?, price = ? WHERE id = ?'
+    // FIXME: an inexistent product should not be updated
+    db.run(query, [name, price, id], error => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error occurred.' })
+      }
+      return res.status(200).json({ message: 'Product updated with success.' })
     })
   }
 )
