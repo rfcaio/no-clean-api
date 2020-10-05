@@ -35,7 +35,14 @@ server.delete(
       return res.status(400).json({ errors: errors.array() })
     }
 
-    return res.status(204).end()
+    const { id } = req.params
+    // FIXME: an inexistent product should not be deleted
+    db.run('DELETE FROM product WHERE id = ?', [id], error => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error occurred.' })
+      }
+      return res.status(204).end()
+    })
   }
 )
 
