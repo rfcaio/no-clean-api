@@ -63,7 +63,17 @@ server.get(
     }
 
     const { id } = req.params
-    return res.status(200).json({ id })
+    db.get('SELECT * FROM product WHERE id = ?', id, (error, product) => {
+      if (error) {
+        return res.status(500).json({ message: 'Server error occurred.' })
+      }
+
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found.' })
+      }
+
+      return res.status(200).json(product)
+    })
   }
 )
 
