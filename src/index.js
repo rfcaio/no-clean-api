@@ -1,5 +1,21 @@
 const express = require('express')
 const { body, param, validationResult } = require('express-validator')
+const sqlite3 = require('sqlite3').verbose()
+
+const db = new sqlite3.Database('product.db', error => {
+  console.log(error || 'Database created.')
+})
+
+db.run(
+  `
+    CREATE TABLE IF NOT EXISTS product (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      price REAL NOT NULL
+    )
+  `,
+  error => error && console.log(error)
+)
 
 const server = express()
 
