@@ -92,10 +92,10 @@ server.post(
       .notEmpty()
       .withMessage('Product name should not be empty.')
       .isLength({ min: 6 })
-      .withMessage('Product name must have at least 6 characters.'),
+      .withMessage('Product name must have at least six characters.'),
     body('price')
       .isFloat({ gt: 0 })
-      .withMessage('You must provide a valid price.')
+      .withMessage('Product price must be a number greater than zero.')
   ],
   (req, res) => {
     const errors = validationResult(req)
@@ -111,7 +111,7 @@ server.post(
       if (error) {
         return res.status(500).json({ message: 'Server error occurred.' })
       }
-      return res.status(201).json({ message: 'Product created with success.' })
+      return res.status(201).json({ message: 'Product successfully created.' })
     })
   }
 )
