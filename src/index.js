@@ -1,6 +1,7 @@
 const express = require('express')
 const { body, param, validationResult } = require('express-validator')
 const sqlite3 = require('sqlite3').verbose()
+const uuid = require('uuid')
 
 const db = new sqlite3.Database('product.db', error => {
   console.log(error || 'Database created.')
@@ -104,8 +105,9 @@ server.post(
     }
 
     const { name, price } = req.body
-    const query = 'INSERT INTO product (name, price) VALUES (?, ?)'
-    db.run(query, [name, price], error => {
+    const id = uuid.v4()
+    const query = 'INSERT INTO product (id, name, price) VALUES (?, ?, ?)'
+    db.run(query, [id, name, price], error => {
       if (error) {
         return res.status(500).json({ message: 'Server error occurred.' })
       }
