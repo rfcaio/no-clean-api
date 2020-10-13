@@ -128,8 +128,8 @@ server.put(
       .isFloat({ gt: 0 })
       .withMessage('You must provide a valid price.'),
     param('id')
-      .isInt({ gt: 0 })
-      .withMessage('You must provide a valid id.')
+      .isUUID()
+      .withMessage('Product ID must be a valid UUID.')
   ],
   (req, res) => {
     const errors = validationResult(req)
