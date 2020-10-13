@@ -123,10 +123,10 @@ server.put(
       .notEmpty()
       .withMessage('Product name should not be empty.')
       .isLength({ min: 6 })
-      .withMessage('Product name must have at least 6 characters.'),
+      .withMessage('Product name must have at least six characters.'),
     body('price')
       .isFloat({ gt: 0 })
-      .withMessage('You must provide a valid price.'),
+      .withMessage('Product price must be a number greater than zero.'),
     param('id')
       .isUUID()
       .withMessage('Product ID must be a valid UUID.')
@@ -146,7 +146,7 @@ server.put(
       if (error) {
         return res.status(500).json({ message: 'Server error occurred.' })
       }
-      return res.status(200).json({ message: 'Product updated with success.' })
+      return res.status(200).json({ message: 'Product successfully updated.' })
     })
   }
 )
