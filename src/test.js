@@ -13,6 +13,8 @@ const truncateProductDatabase = done => {
 describe('product test suites', () => {
   beforeEach(truncateProductDatabase)
 
+  afterAll(truncateProductDatabase)
+
   describe('/product POST', () => {
     test('reject product with no name', async () => {
       const response = (
