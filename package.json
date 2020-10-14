@@ -45,6 +45,7 @@
   },
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "ENV_TYPE=test jest"
+    "test": "ENV_TYPE=test jest",
+    "test:coverage": "npm t -- --coverage"
   }
 }
