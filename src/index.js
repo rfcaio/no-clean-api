@@ -3,8 +3,14 @@ const { body, param, validationResult } = require('express-validator')
 const sqlite3 = require('sqlite3').verbose()
 const uuid = require('uuid')
 
-const db = new sqlite3.Database('product.db', error => {
-  console.log(error || 'Database created.')
+const DATABASE_NAME = (
+  process.env.ENV_TYPE === 'test' ? 'product.test.db' : 'product.db'
+)
+
+const db = new sqlite3.Database(DATABASE_NAME, error => {
+  if (error) {
+    console.log(error)
+  }
 })
 
 db.run(
@@ -101,7 +107,8 @@ server.post(
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
+      const [firstError] = errors.array()
+      return res.status(400).json({ message: firstError.msg })
     }
 
     const { name, price } = req.body
@@ -151,4 +158,6 @@ server.put(
   }
 )
 
-server.listen(3000)
+process.env.ENV_TYPE !== 'test' && server.listen(3000)
+
+module.exports = { db, server }

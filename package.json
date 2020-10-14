@@ -45,6 +45,6 @@
   },
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "jest"
+    "test": "ENV_TYPE=test jest"
   }
 }
