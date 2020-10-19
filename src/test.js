@@ -31,6 +31,23 @@ describe('product test suites', () => {
 
   afterEach(truncateProductDatabase)
 
+  describe('/product/:id DELETE', () => {
+    beforeEach(insertDefaultProduct)
+
+    test('reject product with an invalid id', async () => {
+      const response = await request(server).delete('/product/1')
+      expect(response.status).toEqual(400)
+      expect(response.body.message).toEqual('Product ID must be a valid UUID.')
+    })
+
+    test('delete product successfully', async () => {
+      const response = await (
+        request(server).delete('/product/5e392019-3d9a-463f-a5cd-a7e7e631be1c')
+      )
+      expect(response.status).toEqual(204)
+    })
+  })
+
   describe('/product GET', () => {
     beforeEach(insertDefaultProduct)
 
